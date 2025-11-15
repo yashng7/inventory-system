@@ -1,0 +1,606 @@
+{
+    "info": {
+      "name": "Inventory & Sales Management API",
+      "description": "Complete API collection for Inventory and Sales Management System",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+      {
+        "key": "baseUrl",
+        "value": "http://localhost:5000/api",
+        "type": "string"
+      },
+      {
+        "key": "token",
+        "value": "",
+        "type": "string"
+      },
+      {
+        "key": "adminToken",
+        "value": "",
+        "type": "string"
+      },
+      {
+        "key": "staffToken",
+        "value": "",
+        "type": "string"
+      },
+      {
+        "key": "customerToken",
+        "value": "",
+        "type": "string"
+      }
+    ],
+    "item": [
+      {
+        "name": "Authentication",
+        "item": [
+          {
+            "name": "Register Customer",
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "exec": [
+                    "if (pm.response.code === 201) {",
+                    "    const response = pm.response.json();",
+                    "    pm.collectionVariables.set('customerToken', response.token);",
+                    "    pm.collectionVariables.set('token', response.token);",
+                    "}"
+                  ],
+                  "type": "text/javascript"
+                }
+              }
+            ],
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/auth/register",
+                "host": ["{{baseUrl}}"],
+                "path": ["auth", "register"]
+              },
+              "description": "Register a new customer account"
+            },
+            "response": []
+          },
+          {
+            "name": "Login Admin",
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "exec": [
+                    "if (pm.response.code === 200) {",
+                    "    const response = pm.response.json();",
+                    "    pm.collectionVariables.set('adminToken', response.token);",
+                    "    pm.collectionVariables.set('token', response.token);",
+                    "    console.log('Admin Token:', response.token);",
+                    "}"
+                  ],
+                  "type": "text/javascript"
+                }
+              }
+            ],
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"admin@inventory.com\",\n  \"password\": \"admin123\"\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/auth/login",
+                "host": ["{{baseUrl}}"],
+                "path": ["auth", "login"]
+              },
+              "description": "Login as admin user"
+            },
+            "response": []
+          },
+          {
+            "name": "Login Staff",
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "exec": [
+                    "if (pm.response.code === 200) {",
+                    "    const response = pm.response.json();",
+                    "    pm.collectionVariables.set('staffToken', response.token);",
+                    "    pm.collectionVariables.set('token', response.token);",
+                    "}"
+                  ],
+                  "type": "text/javascript"
+                }
+              }
+            ],
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"staff@inventory.com\",\n  \"password\": \"staff123\"\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/auth/login",
+                "host": ["{{baseUrl}}"],
+                "path": ["auth", "login"]
+              },
+              "description": "Login as staff user"
+            },
+            "response": []
+          },
+          {
+            "name": "Login Customer",
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "exec": [
+                    "if (pm.response.code === 200) {",
+                    "    const response = pm.response.json();",
+                    "    pm.collectionVariables.set('customerToken', response.token);",
+                    "    pm.collectionVariables.set('token', response.token);",
+                    "}"
+                  ],
+                  "type": "text/javascript"
+                }
+              }
+            ],
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/auth/login",
+                "host": ["{{baseUrl}}"],
+                "path": ["auth", "login"]
+              },
+              "description": "Login as customer"
+            },
+            "response": []
+          },
+          {
+            "name": "Get Current User",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/auth/me",
+                "host": ["{{baseUrl}}"],
+                "path": ["auth", "me"]
+              },
+              "description": "Get currently logged in user details"
+            },
+            "response": []
+          },
+          {
+            "name": "Logout",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/auth/logout",
+                "host": ["{{baseUrl}}"],
+                "path": ["auth", "logout"]
+              },
+              "description": "Logout current user"
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Products",
+        "item": [
+          {
+            "name": "Get All Products",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{baseUrl}}/products",
+                "host": ["{{baseUrl}}"],
+                "path": ["products"]
+              },
+              "description": "Get all active products (Public)"
+            },
+            "response": []
+          },
+          {
+            "name": "Get Products by Category",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{baseUrl}}/products?category=Electronics",
+                "host": ["{{baseUrl}}"],
+                "path": ["products"],
+                "query": [
+                  {
+                    "key": "category",
+                    "value": "Electronics"
+                  }
+                ]
+              },
+              "description": "Filter products by category"
+            },
+            "response": []
+          },
+          {
+            "name": "Search Products",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{baseUrl}}/products?search=laptop",
+                "host": ["{{baseUrl}}"],
+                "path": ["products"],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "laptop"
+                  }
+                ]
+              },
+              "description": "Search products by name"
+            },
+            "response": []
+          },
+          {
+            "name": "Get Low Stock Products",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{baseUrl}}/products?lowStock=true",
+                "host": ["{{baseUrl}}"],
+                "path": ["products"],
+                "query": [
+                  {
+                    "key": "lowStock",
+                    "value": "true"
+                  }
+                ]
+              },
+              "description": "Get products with low stock"
+            },
+            "response": []
+          },
+          {
+            "name": "Get Single Product",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{baseUrl}}/products/:id",
+                "host": ["{{baseUrl}}"],
+                "path": ["products", ":id"],
+                "variable": [
+                  {
+                    "key": "id",
+                    "value": "PRODUCT_ID_HERE"
+                  }
+                ]
+              },
+              "description": "Get product by ID"
+            },
+            "response": []
+          },
+          {
+            "name": "Create Product (Admin)",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Laptop Dell XPS 15\",\n  \"description\": \"High performance laptop with 16GB RAM\",\n  \"category\": \"Electronics\",\n  \"price\": 1299.99,\n  \"stock\": 25,\n  \"lowStockThreshold\": 5\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/products",
+                "host": ["{{baseUrl}}"],
+                "path": ["products"]
+              },
+              "description": "Create new product (Admin only)"
+            },
+            "response": []
+          },
+          {
+            "name": "Create Product - Wireless Mouse",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Wireless Mouse\",\n  \"description\": \"Ergonomic wireless mouse\",\n  \"category\": \"Electronics\",\n  \"price\": 29.99,\n  \"stock\": 5,\n  \"lowStockThreshold\": 10\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/products",
+                "host": ["{{baseUrl}}"],
+                "path": ["products"]
+              },
+              "description": "Create low stock product example"
+            },
+            "response": []
+          },
+          {
+            "name": "Create Product - Book",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"JavaScript: The Good Parts\",\n  \"description\": \"Master JavaScript fundamentals\",\n  \"category\": \"Books\",\n  \"price\": 39.99,\n  \"stock\": 50\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/products",
+                "host": ["{{baseUrl}}"],
+                "path": ["products"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Create Product - T-Shirt",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Cotton T-Shirt Blue\",\n  \"description\": \"Premium cotton blue t-shirt\",\n  \"category\": \"Clothing\",\n  \"price\": 19.99,\n  \"stock\": 100\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/products",
+                "host": ["{{baseUrl}}"],
+                "path": ["products"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Update Product (Admin)",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Laptop Dell XPS 15 - Updated\",\n  \"price\": 1199.99,\n  \"stock\": 30\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/products/:id",
+                "host": ["{{baseUrl}}"],
+                "path": ["products", ":id"],
+                "variable": [
+                  {
+                    "key": "id",
+                    "value": "PRODUCT_ID_HERE"
+                  }
+                ]
+              },
+              "description": "Update product (Admin only)"
+            },
+            "response": []
+          },
+          {
+            "name": "Update Stock (Admin/Staff)",
+            "request": {
+              "method": "PATCH",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"stock\": 50\n}"
+              },
+              "url": {
+                "raw": "{{baseUrl}}/products/:id/stock",
+                "host": ["{{baseUrl}}"],
+                "path": ["products", ":id", "stock"],
+                "variable": [
+                  {
+                    "key": "id",
+                    "value": "PRODUCT_ID_HERE"
+                  }
+                ]
+              },
+              "description": "Update product stock quantity"
+            },
+            "response": []
+          },
+          {
+            "name": "Delete Product (Admin)",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}",
+                  "type": "text"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/products/:id",
+                "host": ["{{baseUrl}}"],
+                "path": ["products", ":id"],
+                "variable": [
+                  {
+                    "key": "id",
+                    "value": "PRODUCT_ID_HERE"
+                  }
+                ]
+              },
+              "description": "Soft delete product (Admin only)"
+            },
+            "response": []
+          },
+          {
+            "name": "Get Low Stock Alerts (Admin/Staff)",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}",
+                  "type": "text"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/products/alerts/low-stock",
+                "host": ["{{baseUrl}}"],
+                "path": ["products", "alerts", "low-stock"]
+              },
+              "description": "Get all low stock products"
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Health Check",
+        "item": [
+          {
+            "name": "API Status",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:5000/",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "5000",
+                "path": [""]
+              },
+              "description": "Check if API is running"
+            },
+            "response": []
+          },
+          {
+            "name": "Health Check",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{baseUrl}}/health",
+                "host": ["{{baseUrl}}"],
+                "path": ["health"]
+              },
+              "description": "Check API and database health"
+            },
+            "response": []
+          },
+          {
+            "name": "Test Models",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{baseUrl}}/test-models",
+                "host": ["{{baseUrl}}"],
+                "path": ["test-models"]
+              },
+              "description": "Test if all models are loaded"
+            },
+            "response": []
+          }
+        ]
+      }
+    ]
+  }
