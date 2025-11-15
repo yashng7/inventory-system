@@ -3,7 +3,7 @@
 A complete, full-stack inventory and sales management application built with the MERN stack (MongoDB, Express, React, Node.js) and deployed using modern cloud services. This system provides a feature-rich e-commerce experience for customers and powerful management tools for staff and administrators.
 
  <!-- Replace with your screenshot URL -->
- ![homepage](https://github.com/your-username/inventory-system/assets/thumbnail.png)
+ ![homepage](https://github.com/yashng7/inventory-system/blob/main/assets/thumbnail.png)
 
 ### 🚀 Live Demo
 
